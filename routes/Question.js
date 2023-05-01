@@ -29,14 +29,16 @@ const upload = multer({
   storage: storage,
   fileFilter: fileFilter
 });
-
+const moment = require('moment');
 router.post('/add', upload.single('image'), (req, res) => {
   const { idUser, Description } = req.body;
   const imagePath = req.file ? req.file.filename : null;
+  const date = moment().format('DD/MM/YYYY [at] HH:mm');
   const question = new Question({
     idUser,
     Description,
-    Image: imagePath
+    Image: imagePath,
+    date
   });
 
   question.save((err, saved) => {
@@ -88,5 +90,32 @@ router.get('/getbyid/:idUser', async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   });
+// delete question
+router.delete('/delete/:id', (req, res) => {
+  id = req.params.id;
+  Question.findByIdAndDelete({ _id: id }).then(
+      (deletedQuestion) => {
+          console.log(`Question ${deletedQuestion} deleted`);
+          res.send(deletedQuestion);
+      },
+      (err) => {
+          res.send(err);
+      }
+  );
+});
+// update question
+router.put('/update/:id', (req, res) => {
+  let id = req.params.id;
+  let QuestionToUpdate = req.body;
+
+  Question.findByIdAndUpdate({ _id: id }, QuestionToUpdate, { new: true }).then(
+      (updatedQuestion) => {
+          res.send(updatedQuestion);
+      },
+      (err) => {
+          res.send(err);
+      }
+  );
+});
   
 module.exports = router;
