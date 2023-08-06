@@ -10,12 +10,14 @@ const EnseignantApi = require('./routes/Enseignant');
 const ClasseApi = require('./routes/Classe');
 const AdminApi = require('./routes/Admin');
 const ReponseApi = require('./routes/Reponse');
+const ReclamationApi = require('./routes/Reclamation');
 app.use('/Etudiant' , EtudiantApi);
 app.use('/Classe' , ClasseApi);
 app.use('/Admin' , AdminApi);
 app.use('/Question' , QuestionApi);
 app.use('/Reponse' , ReponseApi);
 app.use('/Enseignant' , EnseignantApi);
+app.use('/Reclamation' , ReclamationApi);
 app.use('/getimage' , express.static('./Images'));
 // app.use('/Seance' , SeanceApi);
 app.listen(3000, () => {

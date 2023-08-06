@@ -152,6 +152,24 @@ router.get('/getbyid/:id', (req, res) => {
         }
     );
 })
+// get etudiants by id classe
+router.get('/getbyclasse/:id', async (req, res) => {
+    try {
+      const classeId = req.params.id;
+      console.log('classeId:', classeId);
+      const etudiants = await Etudiant.find({ Classe: classeId }).exec();
+      console.log('etudiants:', etudiants);
+      if (etudiants.length === 0) {
+        return res.status(404).json({ error: 'No etudiants found for the specified classe ID.' });
+      }
+      return res.json(etudiants);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'An unexpected error occurred.' });
+    }
+  });
+  
+  
 // check if the id is from etudiant or enseignant 1 = student ; 2 = teacher
 router.get('/getbyiduser/:id', async (req, res) => {
     try {

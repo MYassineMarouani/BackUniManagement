@@ -4,11 +4,10 @@ const Classe = require('../models/classe');
 
 router.post('/add', async (req, res) => {
     try {
-        const { nom, GroupeEtudiants } = req.body;
+        const { nom } = req.body;
 
         const classe = new Classe({
             nom,
-            GroupeEtudiants
         });
 
         await classe.save();
