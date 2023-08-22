@@ -97,7 +97,7 @@ router.put('/update/:id', async (req, res) => {
       service: 'gmail',
       auth: {
         user: 'reclamationiteamuniversity@gmail.com',
-        pass: 'gmyhjptvekwwchbr',
+        pass: 'gmyhjptvekwwchb',
       },
     });
 
